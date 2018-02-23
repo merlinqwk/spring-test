@@ -13,6 +13,9 @@ public class Student implements Serializable{
     private String name;
     private String sex;
 
+    public Student() {
+    }
+
     public Student(Integer id, String name, String sex) {
         this.id = id;
         this.name = name;

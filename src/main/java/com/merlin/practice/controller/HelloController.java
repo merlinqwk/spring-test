@@ -10,12 +10,8 @@ public class HelloController {
 
     @ResponseBody
     @PostMapping("hello")
-    public String test(@RequestBody Student student){
-        StringBuffer sb = new StringBuffer();
-        sb.append("id:" + student.getId());
-        sb.append("; name:" + student.getName());
-        sb.append("; sex:" + student.getSex());
-        return String.valueOf(sb);
+    public Student test(@RequestBody Student student){
+        return student;
     }
 
     @ResponseBody
