@@ -56,7 +56,7 @@
 
     <bean class="org.mybatis.spring.mapper.MapperFactoryBean">
         <property name="sqlSessionFactory" ref="businessSqlFactory"/>
-        <property name="mapperInterface" value="com.merlin.practice.dao.HelloMapper"/>
+        <property name="mapperInterface" value="com.merlin.practice.dao.HelloDao"/>
     </bean>
 
     <context:component-scan base-package="com.merlin.practice.service"/>

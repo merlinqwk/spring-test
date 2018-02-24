@@ -1,6 +1,6 @@
 package com.merlin.practice.service;
 
-import com.merlin.practice.dao.HelloMapper;
+import com.merlin.practice.dao.HelloDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Service;
 public class HelloService {
 
     @Autowired
-    private HelloMapper helloMapper;
+    private HelloDao helloDao;
 
     public String getStoreName(){
-        return helloMapper.getName();
+        return helloDao.getName();
     }
 }
