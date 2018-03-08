@@ -8,9 +8,13 @@
         <property name="locations">
             <list>
                 <value>classpath:jdbcConfig.properties</value>
+                <value>classpath:redis-properties.properties</value>
             </list>
         </property>
     </bean>
+
+    <import resource="spring-redis.xml"/>
+
     <bean id="businessDb" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
         <property name="url" value="${businessDb-url}"/>
         <property name="username" value="${businessDb-userName}"/>
@@ -59,8 +63,16 @@
         <property name="mapperInterface" value="com.merlin.practice.dao.HelloDao"/>
     </bean>
 
-    <context:component-scan base-package="com.merlin.practice.service"/>
-    <context:component-scan base-package="com.merlin.practice.dao"/>
+    <bean id="businessTransaction" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="businessDb"/>
+    </bean>
+
+    <!--<context:component-scan base-package="com.merlin.practice.service"/>-->
+    <!--<context:component-scan base-package="com.merlin.practice.dao"/>-->
+    <context:component-scan base-package="com.merlin.practice">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
+    </context:component-scan>
 
 
 
