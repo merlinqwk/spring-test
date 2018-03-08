@@ -67,12 +67,12 @@
         <property name="dataSource" ref="businessDb"/>
     </bean>
 
-    <!--<context:component-scan base-package="com.merlin.practice.service"/>-->
-    <!--<context:component-scan base-package="com.merlin.practice.dao"/>-->
-    <context:component-scan base-package="com.merlin.practice">
-        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
-        <context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>
-    </context:component-scan>
+    <context:component-scan base-package="com.merlin.practice.service"/>
+    <context:component-scan base-package="com.merlin.practice.dao"/>
+    <!--<context:component-scan base-package="com.merlin.practice">-->
+        <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+        <!--<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.RestController"/>-->
+    <!--</context:component-scan>-->
 
 
 

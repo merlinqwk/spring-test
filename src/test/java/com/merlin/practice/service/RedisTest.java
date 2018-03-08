@@ -1,6 +1,8 @@
 package com.merlin.practice.service;
 
+import com.merlin.practice.controller.RedisCacheController;
 import org.junit.Test;
+import org.junit.experimental.theories.suppliers.TestedOn;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
@@ -23,6 +25,8 @@ public class RedisTest {
 
     @Autowired
     private JedisConnectionFactory connectionFactory;
+    @Autowired
+    private RedisCacheController redisCacheController;
 
     @Test
     public void jedisTest(){
@@ -88,7 +92,16 @@ public class RedisTest {
         System.out.println("result size : [" + result.size() + "]..");
         System.out.println("with pipeline get result used : [" + (end - start)  + "] seconds");
         jedis.disconnect();
+    }
 
+    @Test
+    public void testWithoutPipeline(){
+        System.out.println("withoutPipeline key0 value = " + redisCacheController.withoutPipeline("key",0));
+    }
+
+    @Test
+    public void testWithPipeline(){
+        System.out.println("withPipeline key0 value = " + redisCacheController.withPipeline("key",0));
     }
 
 }
