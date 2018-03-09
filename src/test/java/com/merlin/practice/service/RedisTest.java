@@ -29,6 +29,7 @@ public class RedisTest {
     @Autowired
     private RedisCacheController redisCacheController;
 
+
     @Test
     public void jedisTest(){
         Jedis jedis = connectionFactory.getShardInfo().createResource();
@@ -118,5 +119,21 @@ public class RedisTest {
 //        System.out.println("-------------WithPipeline cost time : [" + (end - start) + "] ..");
         System.out.println("withPipeline key0 value = " + redisCacheController.withPipeline(keyValue));
     }
+
+    @Test
+    public void ClearRedis(){
+        Jedis jedis = connectionFactory.getShardInfo().createResource();
+        jedis.flushDB();
+        jedis.flushAll();
+    }
+
+    //测试过期时间 单位秒
+    @Test
+    public void setDataWithExpireTime(){
+        Jedis jedis = connectionFactory.getShardInfo().createResource();
+        jedis.setex("key:0:1",60,"vale-0-1");
+        jedis.close();
+    }
+
 
 }

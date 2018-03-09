@@ -19,8 +19,6 @@ import redis.clients.jedis.Response;
 public class RedisCacheController {
     @Autowired
     private JedisConnectionFactory connectionFactory;
-    @Autowired
-    private HelloService helloService;
 
     @ResponseBody
     @PostMapping("withoutPipeline")
@@ -49,9 +47,4 @@ public class RedisCacheController {
         }
     }
 
-    @ResponseBody
-    @PostMapping("getStoreName2")
-    public String getStoreName(){
-        return helloService.getStoreName();
-    }
 }

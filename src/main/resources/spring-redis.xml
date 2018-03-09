@@ -17,4 +17,8 @@
         <property name="poolConfig" ref="redisConfig"/>
         <property name="database" value="${redis.database}"/>
     </bean>
+
+    <bean id="redisCacheService" class="com.merlin.practice.service.RedisCacheService">
+        <property name="dateExpireTime" value="${redis.dataExpireTime}"/>
+    </bean>
 </beans>
