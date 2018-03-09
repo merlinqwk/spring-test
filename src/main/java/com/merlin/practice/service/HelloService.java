@@ -5,12 +5,10 @@ import com.merlin.practice.model.AdGroupSum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 /**
  * Created by qwk on 2018-02-24 09:09
  **/
-@Service("helloService")
+@Service
 public class HelloService {
 
     @Autowired
