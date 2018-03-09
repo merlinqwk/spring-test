@@ -96,12 +96,24 @@ public class RedisTest {
 
     @Test
     public void testWithoutPipeline(){
-        System.out.println("withoutPipeline key0 value = " + redisCacheController.withoutPipeline("key",0));
+        long start = System.currentTimeMillis();
+        for (int i = 0;i < 10000;i++){
+            redisCacheController.withoutPipeline("key",0);
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("WithoutPipeline cost time : [" + (end - start) + "] ..");
+//        System.out.println("withoutPipeline key0 value = " + redisCacheController.withoutPipeline("key",0));
     }
 
     @Test
     public void testWithPipeline(){
-        System.out.println("withPipeline key0 value = " + redisCacheController.withPipeline("key",0));
+        long start = System.currentTimeMillis();
+        for (int i = 0;i < 10000;i++){
+            redisCacheController.withPipeline("key",0);
+        }
+        long end = System.currentTimeMillis();
+        System.out.println("-------------WithPipeline cost time : [" + (end - start) + "] ..");
+//        System.out.println("withPipeline key0 value = " + redisCacheController.withPipeline("key",0));
     }
 
 }

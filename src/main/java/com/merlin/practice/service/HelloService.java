@@ -10,7 +10,7 @@ import java.util.UUID;
 /**
  * Created by qwk on 2018-02-24 09:09
  **/
-@Service
+@Service("helloService")
 public class HelloService {
 
     @Autowired
