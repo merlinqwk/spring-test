@@ -1,6 +1,6 @@
 package com.merlin.practice.service;
 
-import com.merlin.practice.dao.HelloMapper;
+import com.merlin.practice.mapper.HelloMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
