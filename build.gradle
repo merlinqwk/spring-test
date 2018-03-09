@@ -14,8 +14,8 @@ dependencies {
     compile 'javax.servlet:javax.servlet-api:3.0.1'
 //    spring mvc 相关
 //    compile group: 'org.springframework', name: 'spring-context', version: '5.0.3.RLEASE'
-    compile group: 'org.springframework', name: 'spring-webmvc', version: '4.3.12.RELEASE'
-    compile group: 'org.springframework', name: 'spring-jdbc', version: '4.3.12.RELEASE'
+    compile group: 'org.springframework', name: 'spring-webmvc', version: '5.0.3.RELEASE'
+    compile group: 'org.springframework', name: 'spring-jdbc', version: '5.0.3.RELEASE'
 //    compile group: 'org.springframework', name: 'spring-core',  version: '5.0.3.RELEASE'
 
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.9.4'

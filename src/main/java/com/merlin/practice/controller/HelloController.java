@@ -1,5 +1,6 @@
 package com.merlin.practice.controller;
 
+import com.merlin.practice.model.AdGroupSum;
 import com.merlin.practice.model.Student;
 import com.merlin.practice.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,11 @@ public class HelloController {
     @PostMapping("getStoreName")
     public String getStoreName(){
         return helloService.getStoreName();
+    }
+
+    @ResponseBody
+    @PostMapping("getIdResult")
+    public String getIdResult(@RequestBody AdGroupSum adGroupSum){
+        return helloService.getIdResult(adGroupSum);
     }
 }

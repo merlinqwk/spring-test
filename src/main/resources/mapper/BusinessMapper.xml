@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.merlin.practice.mapper.HelloMapper">
+<mapper namespace="com.merlin.practice.dao.HelloDao">
 
     <select id="getName" resultType="java.lang.String">
       SELECT cn_name FROM b_store s WHERE  s.store_id = 1
     </select>
+
+    <insert id="InsertAdCustomRelation" parameterType="com.merlin.practice.model.AdGroupSum">
+        <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+            SELECT @@IDENTITY AS testId
+        </selectKey>
+        INSERT INTO
+            b_ad_group_sum
+            (ad_id,group_id,play_num,ad_name,ad_up_time,ad_off_time)
+        VALUES
+            (#{adId},#{groupId},#{playNum},#{adName},NOW(),NOW())
+    </insert>
+
 </mapper>
