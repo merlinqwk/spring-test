@@ -1,5 +1,6 @@
 package com.merlin.practice.service;
 
+import com.alibaba.fastjson.JSON;
 import com.merlin.practice.controller.RedisCacheController;
 import com.merlin.practice.model.KeyValue;
 import org.junit.Test;
@@ -10,12 +11,11 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Pipeline;
 import redis.clients.jedis.Response;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by qwk on 2018-03-07 16:50
@@ -25,14 +25,14 @@ import java.util.Set;
 public class RedisTest {
 
     @Autowired
-    private JedisConnectionFactory connectionFactory;
+    private JedisPool jedisPool;
     @Autowired
     private RedisCacheController redisCacheController;
 
 
     @Test
     public void jedisTest(){
-        Jedis jedis = connectionFactory.getShardInfo().createResource();
+        Jedis jedis = jedisPool.getResource();
 
         jedis.select(0);
         jedis.flushDB();
@@ -65,7 +65,7 @@ public class RedisTest {
         pipeline.sync();
         end = System.currentTimeMillis();
         System.out.println("dbSize:[" + jedis.dbSize() + "]...");
-        System.out.println("hmset without pipeline used:[" + (end - start)  + "]  seconds");
+        System.out.println("hmset with pipeline used:[" + (end - start)  + "]  seconds");
 
         //without pipeline hgetAll
         Set<String> keys = jedis.keys("key*");
@@ -93,7 +93,7 @@ public class RedisTest {
         end = System.currentTimeMillis();
         System.out.println("result size : [" + result.size() + "]..");
         System.out.println("with pipeline get result used : [" + (end - start)  + "] seconds");
-        jedis.disconnect();
+        jedis.close();
     }
 
     @Test
@@ -120,20 +120,56 @@ public class RedisTest {
         System.out.println("withPipeline key0 value = " + redisCacheController.withPipeline(keyValue));
     }
 
+    //清理数据库
     @Test
     public void ClearRedis(){
-        Jedis jedis = connectionFactory.getShardInfo().createResource();
+        Jedis jedis = jedisPool.getResource();
+        jedis.select(1);
         jedis.flushDB();
         jedis.flushAll();
+        jedis.close();
     }
 
     //测试过期时间 单位秒
     @Test
     public void setDataWithExpireTime(){
-        Jedis jedis = connectionFactory.getShardInfo().createResource();
+        Jedis jedis = jedisPool.getResource();
         jedis.setex("key:0:1",60,"vale-0-1");
         jedis.close();
     }
+
+
+    @Test
+    public void pipelineListTest(){
+        Jedis jedis = jedisPool.getResource();
+        Pipeline pipeline = jedis.pipelined();
+
+        List<Map<String,String>> dataList = new ArrayList<>();
+        for (int i = 0;i < 10;i++){
+            Map<String,String> map = new HashMap<>();
+            map.put("keyType1-" + i,"valueType1-" + i);
+            map.put("keyType2-" + i,"valueType2-" + i);
+            map.put("keyType3-" + i,"valueType3-" + i);
+            dataList.add(map);
+        }
+
+        int size = dataList.size();
+        for (int i = 0;i < size;i++){
+            pipeline.hmset("key" + i,dataList.get(i));
+            pipeline.expire("key" + i,3600);
+        }
+
+        pipeline.sync();
+
+        jedis.close();
+    }
+
+    @Test
+    public void pipelineListGetDataTest(){
+
+
+    }
+
 
 
 }

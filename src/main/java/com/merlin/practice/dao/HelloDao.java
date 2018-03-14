@@ -7,7 +7,7 @@ import com.merlin.practice.model.AdGroupSum;
  **/
 public interface HelloDao {
 
-    String getName();
+    String getStoreName();
 
     void InsertAdCustomRelation(AdGroupSum adGroupSum);
 

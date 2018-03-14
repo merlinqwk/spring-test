@@ -8,17 +8,17 @@ import org.springframework.stereotype.Service;
 /**
  * Created by qwk on 2018-02-24 09:09
  **/
-@Service
+@Service("helloService")
 public class HelloService {
 
     @Autowired
     private HelloDao helloDao;
 
     public String getStoreName(){
-        return helloDao.getName();
+        return helloDao.getStoreName();
     }
 
-    public String getIdResult(AdGroupSum adGroupSum){
+    public String InsertAdCustomRelation(AdGroupSum adGroupSum){
         helloDao.InsertAdCustomRelation(adGroupSum);
         String result = "id result :" + adGroupSum.getId();
         return result;

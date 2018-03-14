@@ -3,7 +3,7 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="redisConfig" class="redis.clients.jedis.JedisPoolConfig">
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <property name="maxTotal" value="${redis.maxTotal}"/>
         <property name="maxIdle" value="${redis.maxIdle}"/>
         <property name="maxWaitMillis" value="${redis.maxWait}"/>
@@ -14,8 +14,17 @@
         <property name="hostName" value="${redis.hostName}"/>
         <property name="password" value="${redis.password}"/>
         <property name="port" value="${redis.port}"/>
-        <property name="poolConfig" ref="redisConfig"/>
+        <property name="poolConfig" ref="jedisPoolConfig"/>
         <property name="database" value="${redis.database}"/>
+    </bean>
+
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg name="poolConfig" ref="jedisPoolConfig"/>
+        <constructor-arg name="host" value="${redis.hostName}"/>
+        <constructor-arg name="port" value="${redis.port}"/>
+        <constructor-arg name="timeout" value="${jedis.timeout}"/>
+        <constructor-arg name="password" value="${redis.password}"/>
+        <constructor-arg name="database" value="${redis.database}"/>
     </bean>
 
     <bean id="redisCacheService" class="com.merlin.practice.service.RedisCacheService">

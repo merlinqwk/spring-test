@@ -34,7 +34,7 @@ public class HelloController {
 
     @ResponseBody
     @PostMapping("getIdResult")
-    public String getIdResult(@RequestBody AdGroupSum adGroupSum){
-        return helloService.getIdResult(adGroupSum);
+    public String InsertAdCustomRelation(@RequestBody AdGroupSum adGroupSum){
+        return helloService.InsertAdCustomRelation(adGroupSum);
     }
 }
